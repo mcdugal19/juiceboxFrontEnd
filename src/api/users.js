@@ -10,3 +10,22 @@ export const fetchUser = async (token) => {
   const data = await response.json();
   return data;
 };
+
+export async function fetchUserToken(username, password) {
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`,{
+      method: "POST",
+      headers: {"Accept": "*/*" ,"Content-Type" : "application/json"} ,
+      body: JSON.stringify({
+        user: {
+          "username": username,
+          "password": password,
+        },
+      }),
+    });
+    const data = await response.json();
+    return data.data.token;
+  } catch (err) {
+    throw err;
+  }
+}

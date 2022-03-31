@@ -5,9 +5,15 @@ import { NavBar, Login, LogOut } from "./index";
 
 const Main = () => {
   const [token, setToken] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [postId, setPostId] = useState(null);
-  const [userObj, setUserObj] = useState({});
+  // const [posts, setPosts] = useState([]);
+  // const [postId, setPostId] = useState(null);
+  // const [userObj, setUserObj] = useState({});
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userPosts, setUserPosts] = useState([]);
+  // const [userMessages, setUserMessages] = useState([]);
+
 
   // useEffect(() => {
   //   const storedToken = localStorage.getItem("token");
@@ -25,7 +31,9 @@ const Main = () => {
       <NavBar />
       <Switch>
         <Route path="/Login">
-          <Login setToken={setToken} />
+          <Login setToken={setToken}
+          setUsername={setUsername}
+          setPassword={setPassword} />
         </Route>
         <Route path="/LogOut">
           <LogOut setToken={setToken} />
