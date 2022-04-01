@@ -28,15 +28,22 @@ const Main = () => {
   // }, [token]);
   return (
     <>
-      <NavBar />
+      <NavBar setIsLoggedIn={setIsLoggedIn} 
+      isLoggedIn={isLoggedIn}
+      setToken={setToken}
+      token={token}/>
       <Switch>
         <Route path="/Login">
           <Login setToken={setToken}
           setUsername={setUsername}
-          setPassword={setPassword} />
+          setPassword={setPassword}
+          setIsLoggedIn={setIsLoggedIn}
+          isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/LogOut">
-          <LogOut setToken={setToken} />
+          <LogOut setToken={setToken} 
+          token={token}
+          />
         </Route>
         {/* <Route path="/SignUp">
           <SignUp setToken={setToken} />

@@ -2,7 +2,7 @@ import react from "react";
 import { Link } from "react-router-dom";
 import { LogOut } from "./index";
 
-const NavBar = () => {
+const NavBar = ({setIsLoggedIn, isLoggedIn, setToken, token}) => {
   return (
     <nav className="nav-bar">
       <div className="lnk">
@@ -14,7 +14,7 @@ const NavBar = () => {
         </Link>
       </div>
       <h1>JuiceBox</h1>
-      {!localStorage.getItem("token") ? (
+      {!isLoggedIn ? (
         <div className="btn">
           <Link className="log" to="/Login">
             <button type="button">Login</button>
@@ -26,7 +26,9 @@ const NavBar = () => {
       ) : (
         <div className="btn">
           <Link className="log" to="/LogOut">
-            <LogOut />
+            <LogOut 
+            setIsLoggedIn={setIsLoggedIn}
+            setToken={setToken}/>
           </Link>
         </div>
       )}

@@ -1,5 +1,6 @@
 import React from "react";
 import { fetchUserToken } from "../api/users";
+import { useHistory } from "react-router-dom";
 
 const Login = ({
   username,
@@ -10,6 +11,7 @@ const Login = ({
   setIsLoggedIn,
   setToken,
 }) => {
+  let history = useHistory()
   return (
     <div>
       <h1>Welcome Back</h1>
@@ -28,6 +30,11 @@ const Login = ({
                 "There was a problem with your login information.",
                 error
               );
+            }
+            finally {
+              setUsername("");
+              setPassword("");
+              history.push("/");
             }
           }}
         >
