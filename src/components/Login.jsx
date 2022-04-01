@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { fetchUserToken } from "../api/users";
 import { useHistory } from "react-router-dom";
 
-const Login = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  isLoggedIn,
-  setIsLoggedIn,
-  setToken,
-}) => {
-  let history = useHistory()
+const Login = ({ isLoggedIn, setIsLoggedIn, setToken }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  let history = useHistory();
   return (
     <div>
       <h1>Welcome Back</h1>
@@ -24,14 +18,15 @@ const Login = ({
             try {
               const response = await fetchUserToken(username, password);
               setToken(response);
+              localStorage.setItem("token", response);
+              localStorage.setItem("username", username);
               setIsLoggedIn(true);
             } catch (error) {
               console.error(
                 "There was a problem with your login information.",
                 error
               );
-            }
-            finally {
+            } finally {
               setUsername("");
               setPassword("");
               history.push("/");

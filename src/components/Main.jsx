@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
-import { NavBar, Login, LogOut } from "./index";
+import { NavBar, Login, LogOut, Posts } from "./index";
+import { fetchAllPosts } from "../api/posts";
 
 const Main = () => {
   const [token, setToken] = useState("");
-  // const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   // const [postId, setPostId] = useState(null);
   // const [userObj, setUserObj] = useState({});
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [userPosts, setUserPosts] = useState([]);
   // const [userMessages, setUserMessages] = useState([]);
 
+  // useEffect(() => {}, []);
 
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      const getPosts = async () => {
+        const postsArray = await fetchAllPosts(storedToken);
+        setPosts(postsArray);
+        console.log(postsArray);
+      };
+      getPosts();
+    }
+  }, [token]);
   //   async function getUser() {
   //     const data = await fetchUser(storedToken);
   //     setUserObj(data /*.?*/);
@@ -28,22 +38,22 @@ const Main = () => {
   // }, [token]);
   return (
     <>
-      <NavBar setIsLoggedIn={setIsLoggedIn} 
-      isLoggedIn={isLoggedIn}
-      setToken={setToken}
-      token={token}/>
+      <NavBar
+        setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        setToken={setToken}
+        token={token}
+      />
       <Switch>
         <Route path="/Login">
-          <Login setToken={setToken}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          setIsLoggedIn={setIsLoggedIn}
-          isLoggedIn={isLoggedIn} />
+          <Login
+            setToken={setToken}
+            setIsLoggedIn={setIsLoggedIn}
+            isLoggedIn={isLoggedIn}
+          />
         </Route>
         <Route path="/LogOut">
-          <LogOut setToken={setToken} 
-          token={token}
-          />
+          <LogOut setToken={setToken} token={token} />
         </Route>
         {/* <Route path="/SignUp">
           <SignUp setToken={setToken} />
@@ -53,16 +63,15 @@ const Main = () => {
         </Route>
         <Route path="/Profile">
           <Profile posts={posts} setPosts={setPosts} userObj={userObj} />
-        </Route>
+  </Route> */}
         <Route path="/">
           <Posts
-            setToken={setToken}
-            postId={postId}
-            setPostId={setPostId}
             posts={posts}
             setPosts={setPosts}
+            isLoggedIn={isLoggedIn}
+            token={token}
           />
-        </Route> */}
+        </Route>
       </Switch>
     </>
   );
