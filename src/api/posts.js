@@ -50,3 +50,15 @@ export async function createPost(postObj, token) {
   console.log('data', data)
   return data.post;
 }
+
+export async function deletePost(postId, token) {
+  const response = await fetch(`${BASE_URL}posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+}
