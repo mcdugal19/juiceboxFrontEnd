@@ -10,9 +10,6 @@ export const fetchPosts = async (token) => {
       },
     });
     const data = await response.json();
-    console.log("In fetch, token.", token);
-    console.log("In fetch, data.", data);
-    console.log("In fetch, data.posts.", data.posts);
     return data.posts;
   } catch (error) {
     throw error;
@@ -36,3 +33,20 @@ export const fetchAllPosts = async () => {
     throw error;
   }
 };
+
+export async function createPost(postObj, token) {
+  const response = await fetch(`${BASE_URL}/posts`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+        title: postObj.title,
+        content: postObj.content,
+    }),
+  });
+  const data = await response.json();
+  console.log('data', data)
+  return data.post;
+}
