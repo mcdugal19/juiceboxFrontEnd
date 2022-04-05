@@ -7,9 +7,10 @@ import { fetchAllPosts } from "../api/posts";
 const Main = () => {
   const [token, setToken] = useState("");
   const [posts, setPosts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   // const [postId, setPostId] = useState(null);
   // const [userObj, setUserObj] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [userPosts, setUserPosts] = useState([]);
   // const [userMessages, setUserMessages] = useState([]);
 
@@ -19,14 +20,21 @@ const Main = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
+      setIsLoggedIn(true);
       const getPosts = async () => {
         const postsArray = await fetchAllPosts(storedToken);
         setPosts(postsArray);
-        console.log(postsArray);
       };
       getPosts();
     }
   }, [token]);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("username");
+    if (storedUser) {
+      setUsername(storedUser);
+    }
+  });
   //   async function getUser() {
   //     const data = await fetchUser(storedToken);
   //     setUserObj(data /*.?*/);
@@ -55,10 +63,10 @@ const Main = () => {
         <Route path="/LogOut">
           <LogOut setToken={setToken} token={token} />
         </Route>
-        {/* <Route path="/SignUp">
+        <Route path="/SignUp">
           <SignUp setToken={setToken} />
         </Route>
-        <Route path="/CreatePost">
+        {/* <Route path="/CreatePost">
           <CreatePost setToken={setToken} setPosts={setPosts} posts={posts} />
         </Route>
         <Route path="/Profile">
@@ -69,6 +77,7 @@ const Main = () => {
             posts={posts}
             setPosts={setPosts}
             isLoggedIn={isLoggedIn}
+            username={username}
             token={token}
           />
           <NewPost

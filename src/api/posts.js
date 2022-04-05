@@ -25,9 +25,6 @@ export const fetchAllPosts = async () => {
       },
     });
     const data = await response.json();
-    // console.log("In fetchAll, token.", token);
-    console.log("In fetchAll, data.", data);
-    console.log("In fetchAll, data.posts.", data.posts);
     return data.posts;
   } catch (error) {
     throw error;
@@ -42,17 +39,16 @@ export async function createPost(postObj, token) {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-        title: postObj.title,
-        content: postObj.content,
+      title: postObj.title,
+      content: postObj.content,
     }),
   });
   const data = await response.json();
-  console.log('data', data)
   return data.post;
 }
 
 export async function deletePost(postId, token) {
-  const response = await fetch(`${BASE_URL}posts/${postId}`, {
+  const response = await fetch(`${BASE_URL}/posts/${postId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -60,5 +56,21 @@ export async function deletePost(postId, token) {
     },
   });
   const data = await response.json();
+  return data;
+}
+export async function editPost(editPostObj, postId, token) {
+  const response = await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title: editPostObj.title,
+      content: editPostObj.content,
+    }),
+  });
+  const data = await response.json();
+  console.log("Edit Data", data);
   return data;
 }

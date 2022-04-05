@@ -13,7 +13,6 @@ export const fetchUser = async (token) => {
 };
 
 export async function fetchUserToken(username, password) {
-  console.log("Credentials:", username, password);
   try {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
@@ -24,7 +23,6 @@ export async function fetchUserToken(username, password) {
       }),
     });
     const data = await response.json();
-    console.log("Data from fetchToken:", data);
     return data.token;
   } catch (err) {
     throw err;
