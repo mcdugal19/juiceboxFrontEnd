@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
-import { NavBar, Login, LogOut, Posts, Search, NewPost } from "./index";
+import { NavBar, Login, LogOut, Posts, Search, NewPost, SignUp } from "./index";
 import { fetchAllPosts } from "../api/posts";
 
 const Main = () => {

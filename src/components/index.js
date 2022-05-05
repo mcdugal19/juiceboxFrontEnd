@@ -7,5 +7,6 @@ export { default as SinglePost } from "./SinglePost";
 export { default as Search } from "./Search";
 export { default as EditPostCard } from "./EditPostCard";
 export { default as NewPost } from "./NewPosts";
+export { default as SignUp } from "./SignUp";
 // export { default as Profile } from "./Profile";
 // export { default as Register } from "./Register";
